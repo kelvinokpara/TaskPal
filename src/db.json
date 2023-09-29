@@ -1,0 +1,25 @@
+{
+  "users": [],
+  "tasks": [
+    {
+      "summary": "Alita",
+      "description": "glory",
+      "id": 1
+    },
+    {
+      "summary": "Freecodecamp courses",
+      "description": "read responsive web design\nread algorithms and data structures\nread frameworks",
+      "id": 2
+    },
+    {
+      "summary": "Group project meeting",
+      "description": "gegt a meeting started with ICTzoid and the rest of the team by 08:00 today",
+      "id": 3
+    },
+    {
+      "summary": "summ12234",
+      "description": "lorem ipsum dolor sit amet consecutor",
+      "id": 4
+    }
+  ]
+}
