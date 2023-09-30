@@ -3,14 +3,14 @@ import Button from "./Button";
 import {
   GetTaskAction,
   createTaskAction,
-  DeleteTaskAction
+  DeleteTaskAction,
 } from "../Redux/actions/CreateTaskAction";
 import { useDispatch, useSelector } from "react-redux";
 
 function TodoList() {
   const dispatch = useDispatch();
   const { createTask, getAllTasks, deleteTask } = useSelector((state) => state);
-  const { createTasks, createLoading, createSuccess, createError } = createTask;
+  // const { createTasks, createLoading, createSuccess, createError } = createTask;
   const { allTasks } = getAllTasks;
 
   useEffect(() => {
@@ -49,14 +49,12 @@ function TodoList() {
     alert("You have not set a valid task");
   };
 
-  const deleteTaskHandler = ()=> {
-    dispatch(
-      DeleteTaskAction()
-    )
-  }
+  const deleteTaskHandler = () => {
+    dispatch(DeleteTaskAction());
+    dispatch(GetTaskAction());
+    console.log("DONE");
+  };
 
-  const arr = ["One Task", "Two Tasks", "Three Tasks", "Four Tasks"];
-  // const arr = [];
   return (
     <div className="flex flex-col gap-5 p-3 px-10 h-[80vh]">
       <div className="flex justify-between items-center px-5 py-2 rounded-md border border-slate-200">
@@ -94,7 +92,8 @@ function TodoList() {
                   width={"w-full"}
                   border="rounded-md"
                   margin={"my-[5px]"}
-                  click={}
+                  func={deleteTaskHandler}
+                  id={item.id}
                 />
               </div>
             </div>

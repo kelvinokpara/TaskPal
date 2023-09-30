@@ -2,11 +2,6 @@
   "users": [],
   "tasks": [
     {
-      "summary": "Alita",
-      "description": "glory",
-      "id": 1
-    },
-    {
       "summary": "Freecodecamp courses",
       "description": "read responsive web design\nread algorithms and data structures\nread frameworks",
       "id": 2
@@ -17,9 +12,9 @@
       "id": 3
     },
     {
-      "summary": "summ12234",
-      "description": "lorem ipsum dolor sit amet consecutor",
-      "id": 4
+      "summary": "Lorem update",
+      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia animi est illo, autem officiis tempora aliquam voluptates cumque blanditiis harum!",
+      "id": 5
     }
   ]
 }
