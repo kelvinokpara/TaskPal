@@ -2,19 +2,14 @@
   "users": [],
   "tasks": [
     {
-      "summary": "Freecodecamp courses",
-      "description": "read responsive web design\nread algorithms and data structures\nread frameworks",
+      "summary": "jkjk",
+      "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus incidunt itaque in ea, doloremque facere soluta necessitatibus recusandae iste illum.",
       "id": 2
     },
     {
-      "summary": "Group project meeting",
-      "description": "gegt a meeting started with ICTzoid and the rest of the team by 08:00 today",
-      "id": 3
-    },
-    {
-      "summary": "Lorem update",
-      "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia animi est illo, autem officiis tempora aliquam voluptates cumque blanditiis harum!",
-      "id": 5
+      "summary": "title 101",
+      "description": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minus incidunt itaque in ea, doloremque facere soluta necessitatibus recusandae iste illum.",
+      "id": 4
     }
   ]
 }

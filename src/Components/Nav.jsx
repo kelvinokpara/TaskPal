@@ -12,6 +12,8 @@ const Nav = () => {
             text="Log out"
             bgColor={"bg-white"}
             textColor={"text-blue-600"}
+            border={"rounded-md"}
+            use={"norm"}
           />
         </NavLink>
 
@@ -20,6 +22,8 @@ const Nav = () => {
             text="Delete account"
             bgColor={"bg-white"}
             textColor={"text-blue-600"}
+            border={"rounded-md"}
+            use={"norm"}
           />
         </NavLink>
       </div>

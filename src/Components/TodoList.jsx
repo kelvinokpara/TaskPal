@@ -49,11 +49,11 @@ function TodoList() {
     alert("You have not set a valid task");
   };
 
-  const deleteTaskHandler = () => {
-    dispatch(DeleteTaskAction());
-    dispatch(GetTaskAction());
-    console.log("DONE");
-  };
+  // const deleteTaskHandler = () => {
+  //   dispatch(DeleteTaskAction());
+  //   dispatch(GetTaskAction());
+  //   console.log("DONE");
+  // };
 
   return (
     <div className="flex flex-col gap-5 p-3 px-10 h-[80vh]">
@@ -63,6 +63,7 @@ function TodoList() {
             text={"New Task"}
             bgColor={"bg-slate-700"}
             textColor={"text-white"}
+            use={"norm"}
           />
         </div>
 
@@ -86,14 +87,22 @@ function TodoList() {
                   width={"w-full"}
                   border={"rounded-md"}
                   margin={"my-[5px]"}
+                  use={"edit"}
+                  Id={item.id}
                 />
+
                 <Button
                   text={"Delete Task"}
                   width={"w-full"}
                   border="rounded-md"
                   margin={"my-[5px]"}
-                  func={deleteTaskHandler}
-                  id={item.id}
+                  use={"delete"}
+                  Id={item.id}
+                  // handler={({ detail }) => {
+                  //   deleteTaskHandler(detail);
+                  //   console.log(detail, typeof detail, "opx");
+                  //   dispatch(GetTaskAction());
+                  // }}
                 />
               </div>
             </div>
@@ -106,7 +115,10 @@ function TodoList() {
       </div>
       {/*  */}
       {isModal && (
-        <div className=" fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50 box-border ">
+        <div
+          className=" fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50 box-border "
+          // onClick={() => setIsModal(false)}
+        >
           <div class=" min-h-[20rem] sm:w-[25rem] shadow-black-100 rounded-2xl bg-white shadow-lg sm:max-w-lg">
             <div class="relative bg-slate-700 py-6 pl-8 text-xl font-semibold uppercase tracking-wider text-white">
               Make a Task

@@ -13,24 +13,41 @@ function Button({
   display = "block ",
   border = "rounded-3xl",
   margin = "m-[5px]",
-  id,
-  func,
+  Id,
+  use,
 }) {
-  // const dispatch = useDispatch();
-  // const deleteTaskHandler = (id) => {
-  //   dispatch(DeleteTaskAction(id));
-  //   dispatch(GetTaskAction());
-  //   console.log("DONE");
-  // };
-  console.log(id);
+  const dispatch = useDispatch();
+  const deleteTaskHandler = (id) => {
+    dispatch(DeleteTaskAction(id));
+    dispatch(GetTaskAction());
+    console.log("DONE");
+  };
 
   return (
-    <button
-      type="submit"
-      className={`${bgColor} px-4 py-2 ${border} ${textColor} ${width} ${display} text-sm font-medium ${margin}`}
-    >
-      {text ?? "..."}
-    </button>
+    <>
+      {use === "edit" ? (
+        <button
+          className={`${bgColor} px-4 py-2 ${border} ${textColor} ${width} ${display} text-sm font-medium ${margin}`}
+        >
+          {text ?? "..."}
+        </button>
+      ) : use === "delete" ? (
+        <button
+          className={`${bgColor} px-4 py-2 ${border} ${textColor} ${width} ${display} text-sm font-medium ${margin}`}
+          onClick={() => deleteTaskHandler(Id)}
+        >
+          {text ?? "..."}
+        </button>
+      ) : use === "norm" ? (
+        <button
+          className={`${bgColor} px-4 py-2 ${border} ${textColor} ${width} ${display} text-sm font-medium ${margin}`}
+        >
+          {text ?? "..."}
+        </button>
+      ) : (
+        ""
+      )}
+    </>
   );
 }
 
