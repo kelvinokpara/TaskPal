@@ -10,6 +10,12 @@ import {
   DELETE_TASK_REQUEST,
   DELETE_TASK_SUCCESS,
   DELETE_TASK_ERROR,
+  //
+  EDIT_TASK_REQUEST,
+  EDIT_TASK_SUCCESS,
+  EDIT_TASK_ERROR,
+  //
+  GET_TASK_ID,
 } from "../constants";
 import axios from "axios";
 
@@ -66,6 +72,13 @@ export const GetTaskAction = () => async (dispatch, state) => {
   }
 };
 
+export const GetTaskIdAction = (data) => {
+  return {
+    type: GET_TASK_ID,
+    payload: data,
+  };
+};
+
 export const DeleteTaskAction = (id) => async (dispatch, state) => {
   try {
     console.log(dispatch, "dispatch");
@@ -86,6 +99,33 @@ export const DeleteTaskAction = (id) => async (dispatch, state) => {
     console.log(error.message, "error");
     dispatch({
       type: DELETE_TASK_ERROR,
+      payload: error.message,
+    });
+  }
+};
+
+export const editTaskAction = (id, BodyData) => async (dispatch, state) => {
+  try {
+    console.log(dispatch, "dispatch");
+    dispatch({
+      type: EDIT_TASK_REQUEST,
+    });
+    const { data } = await axios.patch(`${backend_base_url}/tasks${id}`, {
+      ...BodyData,
+    });
+    console.log(data, "data");
+
+    //if we get here, then request is a success case
+    dispatch({
+      type: EDIT_TASK_SUCCESS,
+      payload: data,
+    });
+    alert("Item successfully edited");
+    return data;
+  } catch (error) {
+    console.log(error.message, "error");
+    dispatch({
+      type: EDIT_TASK_ERROR,
       payload: error.message,
     });
   }

@@ -3,10 +3,17 @@ import {
   CREATE_TASK_SUCCESS,
   CREATE_TASK_RESET,
   CREATE_TASK_ERROR,
+  //
   GET_TASK_REQUEST,
   GET_TASK_SUCCESS,
   GET_TASK_RESET,
   GET_TASK_ERROR,
+  //
+  EDIT_TASK_REQUEST,
+  EDIT_TASK_SUCCESS,
+  EDIT_TASK_RESET,
+  EDIT_TASK_ERROR,
+  //
   DELETE_TASK_REQUEST,
   DELETE_TASK_SUCCESS,
   DELETE_TASK_ERROR,
@@ -53,7 +60,46 @@ export const CreateTaskReducer = (
   }
 };
 
-export const GetTaskReducer = (state = {}, action) => {};
+export const EditTaskReducer = (
+  state = {
+    editTasks: {},
+    editLoading: false,
+    editSuccess: false,
+    editError: null,
+  },
+  action
+) => {
+  switch (action.type) {
+    case EDIT_TASK_REQUEST:
+      return {
+        ...state,
+        editLoading: true,
+      };
+    case EDIT_TASK_SUCCESS:
+      return {
+        ...state,
+        editLoading: false,
+        editSuccess: true,
+        editTasks: action.payload,
+      };
+    case EDIT_TASK_RESET:
+      return {
+        editLoading: false,
+        editSuccess: false,
+        editTasks: null,
+        editError: null,
+      };
+    case EDIT_TASK_ERROR:
+      return {
+        ...state,
+        editLoading: false,
+        editSuccess: false,
+        editError: action.payload,
+      };
+    default:
+      return state;
+  }
+};
 
 export const GetAllTaskReducer = (
   state = {

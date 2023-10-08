@@ -2,6 +2,7 @@ import React from "react";
 import {
   DeleteTaskAction,
   GetTaskAction,
+  GetTaskIdAction,
 } from "../Redux/actions/CreateTaskAction";
 import { useDispatch } from "react-redux";
 
@@ -15,10 +16,19 @@ function Button({
   margin = "m-[5px]",
   Id,
   use,
+  handler,
 }) {
   const dispatch = useDispatch();
   const deleteTaskHandler = (id) => {
     dispatch(DeleteTaskAction(id));
+    dispatch(GetTaskAction());
+    console.log("DONE");
+  };
+
+  const TaskIdHandler = (id) => {
+    // dispatch(GetTaskIdAction(id));
+    handler(id);
+
     dispatch(GetTaskAction());
     console.log("DONE");
   };
@@ -28,6 +38,7 @@ function Button({
       {use === "edit" ? (
         <button
           className={`${bgColor} px-4 py-2 ${border} ${textColor} ${width} ${display} text-sm font-medium ${margin}`}
+          onClick={() => TaskIdHandler(Id)}
         >
           {text ?? "..."}
         </button>

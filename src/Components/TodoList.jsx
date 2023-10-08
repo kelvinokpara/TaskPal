@@ -4,6 +4,7 @@ import {
   GetTaskAction,
   createTaskAction,
   DeleteTaskAction,
+  editTaskAction,
 } from "../Redux/actions/CreateTaskAction";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -13,14 +14,17 @@ function TodoList() {
   // const { createTasks, createLoading, createSuccess, createError } = createTask;
   const { allTasks } = getAllTasks;
 
-  useEffect(() => {
-    dispatch(GetTaskAction());
-  }, []);
-  console.log(allTasks);
-
   const [taskSummary, setTaskSummary] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
   const [isModal, setIsModal] = useState(false);
+  const [isEditModal, setIsEditModal] = useState(false);
+  const [taskId, setTaskId] = useState("");
+
+  useEffect(() => {
+    dispatch(GetTaskAction());
+    setTaskId(0);
+  }, []);
+  // console.log(allTasks);
 
   const taskDataHandler = (e) => {
     if (e.target.name === "summary") {
@@ -43,6 +47,21 @@ function TodoList() {
         })
       );
       setIsModal(false);
+      dispatch(GetTaskAction());
+      return;
+    }
+    alert("You have not set a valid task");
+  };
+
+  const editSubmitHandler = (id) => {
+    if (taskSummary.length !== 0 && taskDesc.length !== 0) {
+      dispatch(
+        editTaskAction(id, {
+          summary: taskSummary,
+          description: taskDesc,
+        })
+      );
+      setIsEditModal(false);
       dispatch(GetTaskAction());
       return;
     }
@@ -82,14 +101,21 @@ function TodoList() {
               </div>
 
               <div className="w-full" id="tabButtons">
-                <Button
-                  text={"Edit Task"}
-                  width={"w-full"}
-                  border={"rounded-md"}
-                  margin={"my-[5px]"}
-                  use={"edit"}
-                  Id={item.id}
-                />
+                <div onClick={() => setIsEditModal(true)}>
+                  <Button
+                    text={"Edit Task"}
+                    width={"w-full"}
+                    border={"rounded-md"}
+                    margin={"my-[5px]"}
+                    use={"edit"}
+                    Id={item.id}
+                    handler={(id) => {
+                      setTaskId(id);
+                      console.log(id, "momo");
+                      console.log("TaskId: ", taskId);
+                    }}
+                  />
+                </div>
 
                 <Button
                   text={"Delete Task"}
@@ -98,11 +124,6 @@ function TodoList() {
                   margin={"my-[5px]"}
                   use={"delete"}
                   Id={item.id}
-                  // handler={({ detail }) => {
-                  //   deleteTaskHandler(detail);
-                  //   console.log(detail, typeof detail, "opx");
-                  //   dispatch(GetTaskAction());
-                  // }}
                 />
               </div>
             </div>
@@ -229,6 +250,134 @@ function TodoList() {
                 <button
                   class="rounded-xl bg-slate-700 px-6 py-3 font-medium text-white outline-none focus:ring"
                   onClick={() => taskSubmitHandler()}
+                >
+                  Save
+                </button>
+              </div>
+            </div>
+            {/*  */}
+          </div>
+        </div>
+      )}
+
+      {/*  */}
+      {/*  */}
+      {/*  */}
+      {isEditModal && (
+        <div
+          className=" fixed top-0 bottom-0 left-0 right-0 flex justify-center items-center bg-black bg-opacity-50 box-border "
+          // onClick={() => setIsModal(false)}
+        >
+          <div class=" min-h-[20rem] sm:w-[25rem] shadow-black-100 rounded-2xl bg-white shadow-lg sm:max-w-lg">
+            <div class="relative bg-slate-700 py-6 pl-8 text-xl font-semibold uppercase tracking-wider text-white">
+              Edit Your Task
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="absolute top-0 right-0 m-5 h-6 w-6 cursor-pointer"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                stroke-width="2"
+                onClick={() => setIsEditModal(false)}
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </div>
+
+            {/*  */}
+            <div className="p-4">
+              <div class="relative mt-4">
+                <input
+                  type="text"
+                  id="Summary"
+                  name="summary"
+                  value={taskSummary}
+                  onChange={(e) => taskDataHandler(e)}
+                  class="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pr-3 pb-2.5 pt-4 text-sm text-gray-900 focus:border-2 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  placeholder=" "
+                />
+                <label for="Summary" class="label-1">
+                  {" "}
+                  Summary{" "}
+                </label>
+              </div>
+
+              <div class="relative mt-4">
+                <textarea
+                  name="description"
+                  id="Description"
+                  cols="30"
+                  rows="10"
+                  value={taskDesc}
+                  onChange={(e) => taskDataHandler(e)}
+                  class="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pr-3 pb-2.5 pt-4 text-sm text-gray-900 focus:border-2 focus:border-blue-600 focus:outline-none focus:ring-0"
+                  placeholder=" "
+                ></textarea>
+
+                <label for="Description" class="label-1">
+                  {" "}
+                  Description{" "}
+                </label>
+              </div>
+
+              {/*  */}
+              <div class="mt-4 flex items-center space-x-4" id="timerBar">
+                <div class="relative mt-2 w-20">
+                  <input
+                    type="number"
+                    id="Days"
+                    value="15"
+                    class="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pr-3 pb-2.5 pt-4 text-sm text-gray-900 focus:border-2 focus:border-blue-600 focus:outline-none focus:ring-0"
+                    placeholder=" "
+                  />
+                  <label for="Days" class="label-1">
+                    {" "}
+                    Days{" "}
+                  </label>
+                </div>
+                <span class="text-gray-400">x</span>
+                <div class="relative mt-2 w-20">
+                  <input
+                    type="number"
+                    id="Hours"
+                    class="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pr-3 pb-2.5 pt-4 text-sm text-gray-900 focus:border-2 focus:border-blue-600 focus:outline-none focus:ring-0"
+                    placeholder=" "
+                  />
+                  <label for="Hours" class="label-1">
+                    {" "}
+                    Hours{" "}
+                  </label>
+                </div>
+                <span class="text-gray-400">x</span>
+                <div class="relative mt-2 w-20">
+                  <input
+                    type="number"
+                    id="Minutes"
+                    class="peer block w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-2.5 pr-3 pb-2.5 pt-4 text-sm text-gray-900 focus:border-2 focus:border-blue-600 focus:outline-none focus:ring-0"
+                    placeholder=" "
+                  />
+                  <label for="Minutes" class="label-1">
+                    {" "}
+                    Minutes{" "}
+                  </label>
+                </div>
+              </div>
+              {/*  */}
+              <hr class="mt-8 mb-4 opacity-75" />
+              <div class="flex justify-end space-x-2" id="buttonDiv">
+                <button
+                  class="rounded-xl px-6 py-3 font-medium outline-none focus:ring"
+                  onClick={() => setIsEditModal(false)}
+                >
+                  Cancel
+                </button>
+                <button
+                  class="rounded-xl bg-slate-700 px-6 py-3 font-medium text-white outline-none focus:ring"
+                  onClick={() => editSubmitHandler(taskId)}
                 >
                   Save
                 </button>
